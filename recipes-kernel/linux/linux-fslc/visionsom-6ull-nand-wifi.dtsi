@@ -1,0 +1,13 @@
+/*
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 as
+ * published by the Free Software Foundation.
+ */
+
+#include "visionsom-6ull-nand.dtsi"
+#include "visionsom-6ull-wifibt.dtsi"
+
+/ {
+        model = "SoMLabs VisionSOM-6ULL-nand-wifi";
+};
+

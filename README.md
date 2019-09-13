@@ -1,2 +1,5 @@
-# meta-somlabs-bsp
-SOMLabs VisionSOM6ULL Yocto Layer
+meta-somlabs-bsp
+==
+
+Basic SoMLabs Yocto meta-layer for VisionSOM6ULL boards - WIP
+
