@@ -1,0 +1,313 @@
+/*
+ * Copyright (C) 2015 Freescale Semiconductor, Inc.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 as
+ * published by the Free Software Foundation.
+ */
+
+/ {
+        chosen {
+                stdout-path = &uart1;
+        };
+
+        leds {
+	        compatible = "gpio-leds";
+                pinctrl-0 = <&pinctrl_gpio_leds>;
+
+	        usr0 {
+	                label = "usr0";
+	                gpios = <&gpio1 10 GPIO_ACTIVE_HIGH>;
+	                linux,default-trigger = "heartbeat";
+	        };
+
+	        usr1 {
+		        label = "usr1";
+		        gpios = <&gpio1 11 GPIO_ACTIVE_HIGH>;
+		        linux,default-trigger = "mmc0";
+	        };
+
+	        usr2 {
+		        label = "usr2";
+		        gpios = <&gpio1 13 GPIO_ACTIVE_HIGH>;
+		        linux,default-trigger = "mmc1";
+	        };
+
+	        usr3 {
+		        label = "usr3";
+		        gpios = <&gpio1 12 GPIO_ACTIVE_HIGH>;
+	        };
+        };
+
+        gpio-keys {
+                compatible = "gpio-keys";
+                pinctrl-0 = <&pinctrl_gpio_keys>;
+                pinctrl-names = "default";
+
+                btn3 {
+                        label = "btn3";
+                        gpios = <&gpio1 8 GPIO_ACTIVE_HIGH>;
+                        linux,code = <2>; /* <KEY_1> */
+                };
+
+                btn4 {
+                        label = "btn4";
+                        gpios = <&gpio1 9 GPIO_ACTIVE_HIGH>;
+                        linux,code = <3>; /* <KEY_2> */
+                };
+        };
+
+	backlight {
+		compatible = "pwm-backlight";
+		pwms = <&pwm8 0 5000000>;
+		brightness-levels = <0 4 8 16 32 64 128 255>;
+		default-brightness-level = <6>;
+		status = "okay";
+	};
+
+
+	reg_usb_otg1_vbus: regulator@2 {
+		compatible = "regulator-fixed";
+		reg = <2>;
+		pinctrl-names = "default";
+		pinctrl-0 = <&pinctrl_usb_otg1>;
+		regulator-name = "usb_otg1_vbus";
+		regulator-min-microvolt = <5000000>;
+		regulator-max-microvolt = <5000000>;
+		gpio = <&gpio2 12 GPIO_ACTIVE_HIGH>;
+		enable-active-high;
+	};
+
+	reg_usb_otg2_vbus: regulator@3 {
+		compatible = "regulator-fixed";
+		reg = <3>;
+		pinctrl-names = "default";
+		pinctrl-0 = <&pinctrl_usb_otg2>;
+		regulator-name = "usb_otg2_vbus";
+		regulator-min-microvolt = <5000000>;
+		regulator-max-microvolt = <5000000>;
+		gpio = <&gpio2 8 GPIO_ACTIVE_HIGH>;
+		enable-active-high;
+	};
+};
+
+&iomuxc {
+        visioncb-std {
+                pinctrl_uart1: uart1grp {
+		        fsl,pins = <
+			        MX6UL_PAD_UART1_TX_DATA__UART1_DCE_TX 0x1b0b1
+			        MX6UL_PAD_UART1_RX_DATA__UART1_DCE_RX 0x1b0b1
+		        >;
+	        };
+
+                pinctrl_i2c2: i2c2grp {
+			fsl,pins = <
+				MX6UL_PAD_UART5_TX_DATA__I2C2_SCL 0x4001b8b0
+				MX6UL_PAD_UART5_RX_DATA__I2C2_SDA 0x4001b8b0
+			>;
+		};
+
+	        pinctrl_gpio_leds: led_grp {
+		        fsl,pins = <
+			        MX6UL_PAD_JTAG_MOD__GPIO1_IO10		0x17099	/* LED 0 */
+			        MX6UL_PAD_JTAG_TMS__GPIO1_IO11		0x17099	/* LED 1 */
+			        MX6UL_PAD_JTAG_TDI__GPIO1_IO13		0x17099	/* LED 2 */
+			        MX6UL_PAD_JTAG_TDO__GPIO1_IO12		0x17099	/* LED 3 */
+		        >;
+	        };
+
+                pinctrl_gpio_keys: keysgrp {
+			fsl,pins = <
+				MX6UL_PAD_GPIO1_IO08__GPIO1_IO08  0x000050B0    /* BTN 3 */
+				MX6UL_PAD_GPIO1_IO09__GPIO1_IO09  0x000050B0    /* BTN 4 */
+			>;
+		};
+
+                pinctrl_enet1: enet1grp {
+		        fsl,pins = <
+			        MX6UL_PAD_GPIO1_IO07__ENET1_MDC		0x1b0b0
+			        MX6UL_PAD_GPIO1_IO06__ENET1_MDIO	0x1F829
+
+			        MX6UL_PAD_ENET1_RX_EN__ENET1_RX_EN	0x1b0b0
+			        MX6UL_PAD_ENET1_RX_ER__ENET1_RX_ER	0x1b0b0
+			        MX6UL_PAD_ENET1_RX_DATA0__ENET1_RDATA00	0x1b0b0
+			        MX6UL_PAD_ENET1_RX_DATA1__ENET1_RDATA01	0x1b0b0
+			        MX6UL_PAD_ENET1_TX_EN__ENET1_TX_EN	0x1b0b0
+			        MX6UL_PAD_ENET1_TX_DATA0__ENET1_TDATA00	0x1b0b0
+			        MX6UL_PAD_ENET1_TX_DATA1__ENET1_TDATA01	0x1b0b0
+			        MX6UL_PAD_ENET1_TX_CLK__ENET1_REF_CLK1	0x400010a9
+		        >;
+	        };
+
+                pinctrl_lcdif_dat: lcdifdatgrp {
+	                fsl,pins = <
+		                MX6UL_PAD_LCD_DATA00__LCDIF_DATA00  0x79
+		                MX6UL_PAD_LCD_DATA01__LCDIF_DATA01  0x79
+		                MX6UL_PAD_LCD_DATA02__LCDIF_DATA02  0x79
+		                MX6UL_PAD_LCD_DATA03__LCDIF_DATA03  0x79
+		                MX6UL_PAD_LCD_DATA04__LCDIF_DATA04  0x79
+		                MX6UL_PAD_LCD_DATA05__LCDIF_DATA05  0x79
+		                MX6UL_PAD_LCD_DATA06__LCDIF_DATA06  0x79
+		                MX6UL_PAD_LCD_DATA07__LCDIF_DATA07  0x79
+		                MX6UL_PAD_LCD_DATA08__LCDIF_DATA08  0x79
+		                MX6UL_PAD_LCD_DATA09__LCDIF_DATA09  0x79
+		                MX6UL_PAD_LCD_DATA10__LCDIF_DATA10  0x79
+		                MX6UL_PAD_LCD_DATA11__LCDIF_DATA11  0x79
+		                MX6UL_PAD_LCD_DATA12__LCDIF_DATA12  0x79
+		                MX6UL_PAD_LCD_DATA13__LCDIF_DATA13  0x79
+		                MX6UL_PAD_LCD_DATA14__LCDIF_DATA14  0x79
+		                MX6UL_PAD_LCD_DATA15__LCDIF_DATA15  0x79
+		                MX6UL_PAD_LCD_DATA16__LCDIF_DATA16  0x79
+		                MX6UL_PAD_LCD_DATA17__LCDIF_DATA17  0x79
+		                MX6UL_PAD_LCD_DATA18__LCDIF_DATA18  0x79
+		                MX6UL_PAD_LCD_DATA19__LCDIF_DATA19  0x79
+		                MX6UL_PAD_LCD_DATA20__LCDIF_DATA20  0x79
+		                MX6UL_PAD_LCD_DATA21__LCDIF_DATA21  0x79
+		                MX6UL_PAD_LCD_DATA22__LCDIF_DATA22  0x79
+		                MX6UL_PAD_LCD_DATA23__LCDIF_DATA23  0x79
+	                >;
+                };
+
+	        pinctrl_lcdif_ctrl: lcdifctrlgrp {
+		        fsl,pins = <
+			        MX6UL_PAD_LCD_CLK__LCDIF_CLK	    0x79
+			        MX6UL_PAD_LCD_ENABLE__LCDIF_ENABLE  0x79
+			        MX6UL_PAD_LCD_HSYNC__LCDIF_HSYNC    0x79
+			        MX6UL_PAD_LCD_VSYNC__LCDIF_VSYNC    0x79
+			
+			        MX6UL_PAD_LCD_RESET__GPIO3_IO04     0x79 /* used for lcd reset */
+		        >;
+	        };
+
+                edt_ft5406_ts_pins_default: tsgrp {
+			fsl,pins = <
+				MX6UL_PAD_GPIO1_IO02__GPIO1_IO02   0x1b0b0
+		        >;
+                };
+
+                pinctrl_pwm8: pwm8grp {
+                        fsl,pins = <
+	                        MX6UL_PAD_JTAG_TRST_B__PWM8_OUT   0x110b0  /* used for LCD backlight */
+                        >;
+                };
+
+                pinctrl_usb_otg1: usbotg1grp {
+	                fsl,pins = <
+		                MX6UL_PAD_ENET2_TX_DATA1__GPIO2_IO12    0x10b0
+	                >;
+                };
+
+                pinctrl_usb_otg2: usbotg2grp {
+	                fsl,pins = <
+		                MX6UL_PAD_ENET2_RX_DATA0__GPIO2_IO08    0x10b0
+	                >;
+                };
+        };
+};
+
+&uart1 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_uart1>;
+	status = "okay";
+};
+
+&fec1 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_enet1>;
+	phy-mode = "rmii";
+	phy-handle = <&ethphy0>;
+	status = "okay";
+
+	mdio {
+		#address-cells = <1>;
+		#size-cells = <0>;
+
+		ethphy0: ethernet-phy@1 {
+			compatible = "ethernet-phy-ieee802.3-c22";
+			reg = <1>;
+		};
+	};
+
+};
+
+&usbotg1 {
+    vbus-supply = <&reg_usb_otg1_vbus>;
+	dr_mode = "host";
+	status = "okay";
+};
+
+&usbotg2 {
+    vbus-supply = <&reg_usb_otg2_vbus>;
+	dr_mode = "host";
+	status = "okay";
+};
+
+&usbphy1 {
+	tx-d-cal = <0x5>;
+};
+
+&usbphy2 {
+	tx-d-cal = <0x5>;
+};
+
+&lcdif {
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_lcdif_dat &pinctrl_lcdif_ctrl>;
+	display = <&display0>;
+	status = "okay";
+
+	display0: display {
+		bits-per-pixel = <16>;
+		bus-width = <24>;
+
+		display-timings {
+			        native-mode = <&timing0>;
+			        timing0: timing0 {
+			        clock-frequency = <33300000>;
+			        hactive = <800>;
+			        vactive = <480>;
+			        hfront-porch = <210>;
+			        hback-porch = <46>;
+			        hsync-len = <20>;
+			        vback-porch = <23>;
+			        vfront-porch = <22>;
+			        vsync-len = <10>;
+
+			        hsync-active = <0>;
+			        vsync-active = <0>;
+			        de-active = <1>;
+			        pixelclk-active = <0>;
+			};
+		};
+	};
+};
+
+&i2c2 {
+	clock_frequency = <100000>;
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_i2c2>;
+	status = "okay";
+
+	polytouch: edt-ft5406@38 {
+		status = "okay";
+		compatible = "edt,edt-ft5406", "edt,edt-ft5x06";
+		pinctrl-names = "default";
+		pinctrl-0 = <&edt_ft5406_ts_pins_default>;
+
+		reg = <0x38>;
+		interrupt-parent = <&gpio1>;
+		interrupts = <2 IRQ_TYPE_EDGE_FALLING>;
+		touchscreen-size-x = <800>;
+		touchscreen-size-y = <480>;
+	};
+};
+
+&pwm8 {
+	pinctrl-names = "default";
+	pinctrl-0 = <&pinctrl_pwm8>;
+	status = "okay";
+};
+
+
+
+
