@@ -31,6 +31,16 @@ EXTRA_OEMAKE_class-cross = 'HOSTCC="${CC} ${CFLAGS} ${LDFLAGS}" V=1'
 
 inherit uboot-config
 
+# Set default device tree file names
+do_setfdtfile () {
+    DEFAULT_DT=$(echo ${KERNEL_DEVICETREE} | cut -d ' ' -f1)
+    DEFAULT_NAND_DT=$(echo ${KERNEL_DEVICETREE} | grep -o '\S*-nand\S*' | head -1)
+
+    sed -i "s/fdt_file=somlabs-visionsom-6ull.dtb/fdt_file=${DEFAULT_DT}/g"           ${WORKDIR}/git/include/configs/somlabs_visionsom_6ull.h
+    sed -i "s/fdt_file=somlabs-visionsom-6ull-nand.dtb/fdt_file=${DEFAULT_NAND_DT}/g" ${WORKDIR}/git/include/configs/somlabs_visionsom_6ull.h
+}
+addtask do_setfdtfile after do_unpack before do_patch
+
 do_compile () {
 	oe_runmake ${UBOOT_MACHINE}
 	oe_runmake envtools
