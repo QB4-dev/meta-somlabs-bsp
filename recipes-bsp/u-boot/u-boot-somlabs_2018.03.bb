@@ -7,6 +7,7 @@ require u-boot-common.inc
 inherit fsl-u-boot-localversion
 
 UBOOT_LOCALVERSION = "-somlabs"
+#LOCALVERSION ?= "-${SRCBRANCH}"
 
 PROVIDES += "u-boot"
 DEPENDS  += "bison-native"

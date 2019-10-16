@@ -14,9 +14,9 @@ PREFERRED_PROVIDER_virtual/bootloader = "u-boot-somlabs"
 PREFERRED_PROVIDER_virtual/kernel = "linux-fslc"
 
 # u-boot configurations
-UBOOT_CONFIG[sd] = "somlabs_visionsom_6ull_config"
-UBOOT_CONFIG[emmc] = "somlabs_visionsom_6ull_config"
-UBOOT_CONFIG[nand] = "somlabs_visionsom_6ull_nand_defconfig"
+UBOOT_CONFIG[sd]   = "somlabs_visionsom_6ull_fastboot_mmc_defconfig"
+UBOOT_CONFIG[emmc] = "somlabs_visionsom_6ull_fastboot_mmc_defconfig"
+UBOOT_CONFIG[nand] = "somlabs_visionsom_6ull_fastboot_nand_defconfig"
 
 # Always depend of u-boot
 EXTRA_IMAGEDEPENDS += "u-boot-somlabs"
