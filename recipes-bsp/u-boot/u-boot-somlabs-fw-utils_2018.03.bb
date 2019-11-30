@@ -1,35 +1,15 @@
-# Copyright (C) 2019 SoMLabs
 SUMMARY = "U-Boot bootloader fw_printenv/setenv utilities"
-
-LICENSE = "GPLv2+"
-LIC_FILES_CHKSUM = "file://Licenses/gpl-2.0.txt;md5=b234ee4d69f5fce4486a80fdaf4a4263"
-
 DESCRIPTION = "i.MX U-Boot suppporting SoMLabs boards."
+
+require u-boot-common.inc
+
+SRC_URI += "file://fw_env.config"
+
 inherit uboot-config
-
-PV = "2018.09"
-PR = "r0"
-
-UBOOT_LOCALVERSION = "-somlabs"
-
-SRCREV = "2b9de64f7876357840fb1471dc10eea5fffb9b9a"
-SRC_URI = " \
-	git://github.com/marcinbis/somlabs-uboot-imx.git;branch=${PV};protocol=git \
-	file://fw_env.config \
-"
-
-S = "${WORKDIR}/git"
-
-inherit fsl-u-boot-localversion
-
-PACKAGE_ARCH = "${MACHINE_ARCH}"
-COMPATIBLE_MACHINE = "(mx6|mx7|use-mainline-bsp)"
 
 INSANE_SKIP_${PN} = "already-stripped"
 EXTRA_OEMAKE_class-target = 'CROSS_COMPILE=${TARGET_PREFIX} CC="${CC} ${CFLAGS} ${LDFLAGS}" HOSTCC="${BUILD_CC} ${BUILD_CFLAGS} ${BUILD_LDFLAGS}" V=1'
 EXTRA_OEMAKE_class-cross = 'HOSTCC="${CC} ${CFLAGS} ${LDFLAGS}" V=1'
-
-inherit uboot-config
 
 do_compile () {
 	oe_runmake ${UBOOT_MACHINE}
@@ -56,9 +36,13 @@ do_install_class-cross () {
 
 SYSROOT_DIRS_append_class-cross = " ${bindir_cross}"
 DEPENDS += "bison-native"
-
-BBCLASSEXTEND = "cross"
+DEPENDS += "mtd-utils"
 
 PROVIDES += "u-boot-fw-utils"
 RPROVIDES_${PN} += "u-boot-fw-utils"
+
+PR = "r0"
+PACKAGE_ARCH = "${MACHINE_ARCH}"
+COMPATIBLE_MACHINE = "(mx6|mx7|use-mainline-bsp)"
+BBCLASSEXTEND = "cross"
 
