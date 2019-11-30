@@ -24,13 +24,12 @@
 	        usr1 {
 		        label = "usr1";
 		        gpios = <&gpio1 11 GPIO_ACTIVE_HIGH>;
-		        linux,default-trigger = "mmc0";
+		        linux,default-trigger = "mmc1";
 	        };
 
 	        usr2 {
 		        label = "usr2";
 		        gpios = <&gpio1 13 GPIO_ACTIVE_HIGH>;
-		        linux,default-trigger = "mmc1";
 	        };
 
 	        usr3 {
@@ -109,17 +108,17 @@
 
 	        pinctrl_gpio_leds: led_grp {
 		        fsl,pins = <
-			        MX6UL_PAD_JTAG_MOD__GPIO1_IO10		0x17099	/* LED 0 */
-			        MX6UL_PAD_JTAG_TMS__GPIO1_IO11		0x17099	/* LED 1 */
-			        MX6UL_PAD_JTAG_TDI__GPIO1_IO13		0x17099	/* LED 2 */
-			        MX6UL_PAD_JTAG_TDO__GPIO1_IO12		0x17099	/* LED 3 */
+			        MX6UL_PAD_JTAG_MOD__GPIO1_IO10	0x17099	/* LED 0 */
+			        MX6UL_PAD_JTAG_TMS__GPIO1_IO11	0x17099	/* LED 1 */
+			        MX6UL_PAD_JTAG_TDI__GPIO1_IO13	0x17099	/* LED 2 */
+			        MX6UL_PAD_JTAG_TDO__GPIO1_IO12	0x17099	/* LED 3 */
 		        >;
 	        };
 
                 pinctrl_gpio_keys: keysgrp {
 			fsl,pins = <
-				MX6UL_PAD_GPIO1_IO08__GPIO1_IO08  0x000050B0    /* BTN 3 */
-				MX6UL_PAD_GPIO1_IO09__GPIO1_IO09  0x000050B0    /* BTN 4 */
+				MX6UL_PAD_GPIO1_IO08__GPIO1_IO08  0x1b0b0 /* BTN 3 */
+				MX6UL_PAD_GPIO1_IO09__GPIO1_IO09  0x1b0b0 /* BTN 4 */
 			>;
 		};
 
@@ -231,13 +230,13 @@
 };
 
 &usbotg1 {
-    vbus-supply = <&reg_usb_otg1_vbus>;
+	vbus-supply = <&reg_usb_otg1_vbus>;
 	dr_mode = "host";
 	status = "okay";
 };
 
 &usbotg2 {
-    vbus-supply = <&reg_usb_otg2_vbus>;
+	vbus-supply = <&reg_usb_otg2_vbus>;
 	dr_mode = "host";
 	status = "okay";
 };
@@ -257,7 +256,7 @@
 	status = "okay";
 
 	display0: display {
-		bits-per-pixel = <16>;
+		bits-per-pixel = <32>;
 		bus-width = <24>;
 
 		display-timings {
