@@ -1,6 +1,7 @@
 FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
 
 SRC_URI += "\
+        file://0001-add-missing-pxp-node.patch \
         file://visionsom-6ull.dtsi \ 
         file://visionsom-6ull-wifibt.dtsi \ 
         file://visionsom-6ull-nand.dtsi \ 
