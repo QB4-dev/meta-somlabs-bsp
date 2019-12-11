@@ -18,11 +18,11 @@ index 62ed30c781ed..f80c9097d92a 100644
  			};
  
 +			pxp: pxp@21cc000 {
-+				compatible = "fsl,imx6ul-pxp";
++				compatible = "fsl,imx6ull-pxp-dma";
 +				reg = <0x021cc000 0x4000>;
 +				interrupts = <GIC_SPI 8 IRQ_TYPE_LEVEL_HIGH>;
-+				clocks = <&clks IMX6UL_CLK_PXP>;
-+				clock-names = "axi";
++				clocks = <&clks IMX6UL_CLK_PXP>,<&clks IMX6UL_CLK_DUMMY>;
++				clock-names = "pxp-axi","disp-axi";
 +			};
 +
  			qspi: spi@21e0000 {
@@ -32,14 +32,16 @@ diff --git a/arch/arm/boot/dts/imx6ull.dtsi b/arch/arm/boot/dts/imx6ull.dtsi
 index f3668fe69eac..392d9045d207 100644
 --- a/arch/arm/boot/dts/imx6ull.dtsi
 +++ b/arch/arm/boot/dts/imx6ull.dtsi
-@@ -30,6 +30,12 @@
+@@ -30,6 +30,14 @@
  	>;
  };
  
 +&pxp {
-+	compatible = "fsl,imx6ull-pxp";
++	compatible = "fsl,imx6ull-pxp-dma";
 +	interrupts = <GIC_SPI 8 IRQ_TYPE_LEVEL_HIGH>,
 +		     <GIC_SPI 18 IRQ_TYPE_LEVEL_HIGH>;
++                    clocks = <&clks IMX6UL_CLK_DUMMY>,<&clks IMX6UL_CLK_PXP>;
++                    clock-names = "pxp_ipg", "pxp_axi";
 +};
 +
  / {
