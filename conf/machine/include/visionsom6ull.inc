@@ -1,7 +1,7 @@
 # SoMLabs VisionSOM-6ULL common board definition file
 
 # compatibility with mx6 machines
-MACHINEOVERRIDES =. "mx6:mx6ull:"
+MACHINEOVERRIDES =. "mx6:mx6ul:mx6ull:"
 
 include conf/machine/include/imx-base.inc
 include conf/machine/include/tune-cortexa7.inc
@@ -12,6 +12,12 @@ PREFERRED_PROVIDER_u-boot-fw-utils = "u-boot-somlabs-fw-utils"
 
 PREFERRED_PROVIDER_virtual/bootloader = "u-boot-somlabs"
 PREFERRED_PROVIDER_virtual/kernel = "linux-fslc"
+
+# Use i.MX Gstreamer Version
+PREFERRED_VERSION_gstreamer1.0 = "1.14.imx"
+PREFERRED_VERSION_gstreamer1.0-plugins-base = "1.14.imx"
+PREFERRED_VERSION_gstreamer1.0-plugins-good = "1.14.imx"
+PREFERRED_VERSION_gstreamer1.0-plugins-bad = "1.14.imx"
 
 SERIAL_CONSOLE = "115200 ttymxc0"
 

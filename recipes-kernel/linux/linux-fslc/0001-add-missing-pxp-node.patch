@@ -1,0 +1,52 @@
+From f4c6d9bc1cf203ff4ca3eaff2232a6fd3b04745c Mon Sep 17 00:00:00 2001
+From: QB4-dev <QB4.dev@gmail.com>
+Date: Mon, 2 Dec 2019 22:08:28 +0100
+Subject: [PATCH] add missing PXP node
+
+Signed-off-by: QB4-dev <QB4.dev@gmail.com>
+---
+ arch/arm/boot/dts/imx6ul.dtsi  | 8 ++++++++
+ arch/arm/boot/dts/imx6ull.dtsi | 6 ++++++
+ 2 files changed, 14 insertions(+)
+
+diff --git a/arch/arm/boot/dts/imx6ul.dtsi b/arch/arm/boot/dts/imx6ul.dtsi
+index 62ed30c781ed..f80c9097d92a 100644
+--- a/arch/arm/boot/dts/imx6ul.dtsi
++++ b/arch/arm/boot/dts/imx6ul.dtsi
+@@ -962,6 +962,14 @@
+ 				status = "disabled";
+ 			};
+ 
++			pxp: pxp@21cc000 {
++				compatible = "fsl,imx6ull-pxp-dma";
++				reg = <0x021cc000 0x4000>;
++				interrupts = <GIC_SPI 8 IRQ_TYPE_LEVEL_HIGH>;
++				clocks = <&clks IMX6UL_CLK_PXP>,<&clks IMX6UL_CLK_DUMMY>;
++				clock-names = "pxp-axi","disp-axi";
++			};
++
+ 			qspi: spi@21e0000 {
+ 				#address-cells = <1>;
+ 				#size-cells = <0>;
+diff --git a/arch/arm/boot/dts/imx6ull.dtsi b/arch/arm/boot/dts/imx6ull.dtsi
+index f3668fe69eac..392d9045d207 100644
+--- a/arch/arm/boot/dts/imx6ull.dtsi
++++ b/arch/arm/boot/dts/imx6ull.dtsi
+@@ -30,6 +30,14 @@
+ 	>;
+ };
+ 
++&pxp {
++	compatible = "fsl,imx6ull-pxp-dma";
++	interrupts = <GIC_SPI 8 IRQ_TYPE_LEVEL_HIGH>,
++		     <GIC_SPI 18 IRQ_TYPE_LEVEL_HIGH>;
++                    clocks = <&clks IMX6UL_CLK_DUMMY>,<&clks IMX6UL_CLK_PXP>;
++                    clock-names = "pxp_ipg", "pxp_axi";
++};
++
+ / {
+ 	soc {
+ 		aips3: aips-bus@2200000 {
+-- 
+2.20.1
+

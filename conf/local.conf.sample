@@ -37,7 +37,7 @@ LICENSE_FLAGS_WHITELIST = "commercial"
 #MACHINE ?= "edgerouter"
 #
 # This sets the default machine to be qemux86 if no other machine is selected:
-MACHINE ??= "visioncb-std-visionsom-6ull-sd-wifi"
+MACHINE ??= "visionsom6ull-wifi-cb-std"
 
 #
 # Where to place downloads
@@ -50,7 +50,7 @@ MACHINE ??= "visioncb-std-visionsom-6ull-sd-wifi"
 #
 # The default is a downloads directory under TOPDIR which is the build directory.
 #
-DL_DIR = "${TOPDIR}/../downloads"
+DL_DIR = "${TOPDIR}/downloads"
 
 #
 # Where to place shared-state files
