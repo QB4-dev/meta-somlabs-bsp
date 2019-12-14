@@ -14,7 +14,6 @@ BBLAYERS ?= " \
   ${YOCTO_ROOT}/poky/meta-openembedded/meta-networking \
   ${YOCTO_ROOT}/poky/meta-openembedded/meta-python \
   ${YOCTO_ROOT}/poky/meta-freescale \
-  ${YOCTO_ROOT}/poky/meta-qt5 \
   ${YOCTO_ROOT}/poky/meta-somlabs-bsp \
   "
 
