@@ -15,7 +15,8 @@ Basic SoMLabs Yocto meta-layer - intended to be easy to use as VisionSOM-6ULL pr
 - gstreamer PXP plugins support
 - Proper sleep/wakeup support
 
-TODO: Demo Layer coming soon...
+Demo Layer available here:
+https://github.com/QB4-dev/meta-somlabs-demo
 
 Build Instructions
 ==
