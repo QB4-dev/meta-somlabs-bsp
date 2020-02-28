@@ -53,14 +53,14 @@ mkdir visionsom_build
 ```
 - download poky - reference Yocto Linux Distribution
 ```
-git clone -b warrior git://git.yoctoproject.org/poky.git poky
+git clone -b zeus git://git.yoctoproject.org/poky.git poky
 cd poky
 ```
 - download essential layers
 ```
-git clone -b warrior git://git.openembedded.org/meta-openembedded
-git clone -b warrior https://github.com/Freescale/meta-freescale.git
-git clone -b warrior https://github.com/QB4-dev/meta-somlabs-bsp
+git clone -b zeus git://git.openembedded.org/meta-openembedded
+git clone -b zeus https://github.com/Freescale/meta-freescale.git
+git clone -b zeus https://github.com/QB4-dev/meta-somlabs-bsp
 ```
 Init bulid environment
 ```
@@ -131,7 +131,7 @@ In this example our sd card has been recognized as `/dev/mmcblk0`
 
 Flash image using `gunzip` and `dd` tools:
 ```
-gunzip -c visionsom-linux-image-visionsom6ull-wifi-cb-std.wic.gz | sudo dd of=/dev/mmcblk0 bs=1M iflag=fullblock oflag=direct conv=fsync status=progress
+gunzip -c core-image-minimal-visionsom6ull-wifi-cb-std.wic.gz | sudo dd of=/dev/mmcblk0 bs=1M iflag=fullblock oflag=direct conv=fsync status=progress
 ```
 Insert card inside Your board and connect power supply
 
