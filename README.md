@@ -130,7 +130,7 @@ In this example our sd card has been recognized as `/dev/mmcblk0`
 
 Flash image using `gunzip` and `dd` tools:
 ```
-gunzip -c visionsom-linux-image-visionsom6ull-wifi-cb-std.wic.gz | sudo dd of=/dev/mmcblk0 bs=1M iflag=fullblock oflag=direct conv=fsync status=progress
+gunzip -c core-image-minimal-visionsom6ull-wifi-cb-std.wic.gz | sudo dd of=/dev/mmcblk0 bs=1M iflag=fullblock oflag=direct conv=fsync status=progress
 ```
 Insert card inside Your board and connect power supply
 
