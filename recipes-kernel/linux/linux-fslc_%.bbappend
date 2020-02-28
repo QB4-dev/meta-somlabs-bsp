@@ -2,7 +2,6 @@ FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
 FILESEXTRAPATHS_append := "${THISDIR}/device-tree:"
 
 SRC_URI += "\
-        file://0001-add-missing-pxp-node.patch \
         file://visionsom6ull-dtsi/ \ 
         file://somlabs-board-dts/  \   
 "
