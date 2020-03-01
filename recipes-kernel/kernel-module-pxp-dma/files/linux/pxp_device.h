@@ -21,7 +21,7 @@
 
 #include <linux/idr.h>
 #include <linux/hash.h>
-#include <uapi/linux/pxp_device.h>
+#include "../uapi/linux/pxp_device.h"
 
 struct pxp_irq_info {
 	wait_queue_head_t waitq;

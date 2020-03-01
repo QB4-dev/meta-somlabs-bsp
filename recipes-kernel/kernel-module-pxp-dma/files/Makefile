@@ -5,6 +5,7 @@ KVERSION = $(shell uname -r)
 SRC := $(shell pwd)
 
 #KCPPFLAGS="-DCONFIG_MXC_PXP_CLIENT_DEVICE"
+#EXTRA_CFLAGS=-I$(PWD)/linux -I$(PWD)/uapi
 
 all:
 	$(MAKE) -C $(KERNEL_SRC) M=$(SRC)

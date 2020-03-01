@@ -27,8 +27,9 @@
 #include <linux/dma-mapping.h>
 #include <linux/sched.h>
 #include <linux/module.h>
-#include <linux/pxp_device.h>
 #include <linux/atomic.h>
+
+#include "linux/pxp_device.h"
 #include "linux/platform_data/dma-imx.h"
 
 #define BUFFER_HASH_ORDER 4

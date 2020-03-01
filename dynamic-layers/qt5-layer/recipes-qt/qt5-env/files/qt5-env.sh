@@ -6,7 +6,7 @@ export QT_QPA_PLATFORM=linuxfb
 
 # to use evdev input
 export QT_QPA_FB_NO_LIBINPUT=1
-export QT_QPA_EVDEV_TOUCHSCREEN_PARAMETERS=/dev/input/event1:rotate=180
+export QT_QPA_EVDEV_TOUCHSCREEN_PARAMETERS=/dev/input/event0:rotate=180
 
 # to use tslib for input (no multi-touch) + qtbase must be compiled with tslib support
 # export QT_QPA_FB_TSLIB=1

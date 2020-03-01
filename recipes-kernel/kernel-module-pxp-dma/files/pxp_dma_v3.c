@@ -41,7 +41,6 @@
 #include <linux/slab.h>
 #include <linux/vmalloc.h>
 #include <linux/dmaengine.h>
-#include <linux/pxp_dma.h>
 #include <linux/timer.h>
 #include <linux/clk.h>
 #include <linux/workqueue.h>
@@ -51,6 +50,7 @@
 
 #include "regs-pxp_v3.h"
 #include "reg_bitfields.h"
+#include "linux/pxp_dma.h"
 
 
 #ifdef CONFIG_MXC_FPGA_M4_TEST

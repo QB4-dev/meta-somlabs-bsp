@@ -19,7 +19,7 @@
 #ifndef _PXP_DMA
 #define _PXP_DMA
 
-#include <uapi/linux/pxp_dma.h>
+#include "../uapi/linux/pxp_dma.h"
 
 struct pxp_tx_desc {
 	struct dma_async_tx_descriptor txd;

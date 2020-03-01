@@ -55,14 +55,35 @@
                 };
         };
 
-	backlight {
+	panel: panel {
+		compatible = "evervision,vgg804821";
+		label = "SL-TFT7-TP-800-480-P";
+		backlight = <&lcd_backlight>;
+		power-supply = <&reg_disp_vcc>;
+
+		port {
+			panel_in: endpoint {
+				remote-endpoint = <&lcdif_out>;
+			};
+		};
+	};
+
+	lcd_backlight: backlight {
 		compatible = "pwm-backlight";
 		pwms = <&pwm8 0 5000000>;
 		brightness-levels = <0 4 8 16 32 64 128 255>;
 		default-brightness-level = <6>;
+		power-supply = <&reg_disp_vcc>;
 		status = "okay";
 	};
 
+	reg_disp_vcc: reg-disp {
+		compatible = "regulator-fixed";
+		regulator-name = "reg-disp";
+		regulator-min-microvolt = <3300000>;
+		regulator-max-microvolt = <3300000>;
+		regulator-always-on;
+	};
 
 	reg_usb_otg1_vbus: regulator@2 {
 		compatible = "regulator-fixed";
@@ -253,31 +274,11 @@
 &lcdif {
 	pinctrl-names = "default";
 	pinctrl-0 = <&pinctrl_lcdif_dat &pinctrl_lcdif_ctrl>;
-	display = <&display0>;
 	status = "okay";
 
-	display0: display {
-		bits-per-pixel = <32>;
-		bus-width = <24>;
-
-		display-timings {
-			        native-mode = <&timing0>;
-			        timing0: timing0 {
-			        clock-frequency = <33300000>;
-			        hactive = <800>;
-			        vactive = <480>;
-			        hfront-porch = <210>;
-			        hback-porch = <46>;
-			        hsync-len = <20>;
-			        vback-porch = <23>;
-			        vfront-porch = <22>;
-			        vsync-len = <10>;
-
-			        hsync-active = <0>;
-			        vsync-active = <0>;
-			        de-active = <1>;
-			        pixelclk-active = <0>;
-			};
+	port {
+		lcdif_out: endpoint {
+			remote-endpoint = <&panel_in>;
 		};
 	};
 };

@@ -19,7 +19,7 @@
 #ifndef _UAPI_PXP_DEVICE
 #define _UAPI_PXP_DEVICE
 
-#include <linux/pxp_dma.h>
+#include "../../linux/pxp_dma.h"
 
 struct pxp_chan_handle {
 	unsigned int handle;
