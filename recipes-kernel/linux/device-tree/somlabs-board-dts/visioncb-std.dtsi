@@ -77,13 +77,13 @@
 		status = "okay";
 	};
 
-	reg_disp_vcc: reg-disp {
+	reg_disp_vcc: regulator@1 {
 		compatible = "regulator-fixed";
 		regulator-name = "reg-disp";
 		regulator-min-microvolt = <3300000>;
 		regulator-max-microvolt = <3300000>;
-		regulator-always-on;
 	};
+
 
 	reg_usb_otg1_vbus: regulator@2 {
 		compatible = "regulator-fixed";

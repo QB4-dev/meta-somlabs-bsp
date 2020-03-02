@@ -36,6 +36,7 @@ IMAGE_INSTALL_append = " \
     kernel-modules \
     u-boot-splash \
     u-boot-somlabs-fw-utils \
+    fb-init \
 "  
 
 IMAGE_FSTYPES = "wic.gz"
