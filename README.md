@@ -11,8 +11,13 @@ Basic SoMLabs Yocto meta-layer - intended to be easy to use as VisionSOM-6ULL pr
 - Murata 1DX Wifi and Bluetooth module support Out-of-Box
 - QT5 support with evdev/tslib touch panel/keyboard + gstreamer backend for qtmultimedia
 - SOMLabs SL-TFT7-TP-800-480-P LCD+Touch panel support
+<<<<<<< HEAD
 - PXP support for gstreamer hardware acceleration - pxp-dma-v3 driver ported from -imx kernel family
 - gstreamer PXP plugins support
+=======
+- PXP support for gstreamer hardware acceleration - pxp-dma-v3 driver ported from `-imx` kernel family [WIP]
+- gstreamer PXP plugins support 
+>>>>>>> a93402dd42a010123bc0d79f09dd7d23cf28df53
 - Proper sleep/wakeup support
 
 Demo Layer available here:
