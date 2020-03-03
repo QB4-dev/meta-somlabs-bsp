@@ -8014,11 +8014,10 @@ static int pxp_probe(struct platform_device *pdev)
 #ifdef	CONFIG_MXC_FPGA_M4_TEST
 	pxp_config_m4(pdev);
 #endif
-	register_pxp_device();
+	register_pxp_device(pxp->dev);
 	pm_runtime_enable(pxp->dev);
 
-	dma_alloc_coherent(NULL, PAGE_ALIGN(1920 * 1088 * 4),
-			   &paddr, GFP_KERNEL);
+	dma_alloc_coherent(pxp->dev, PAGE_ALIGN(1920 * 1088 * 4), &paddr, GFP_KERNEL);
 
 exit:
 	if (err)

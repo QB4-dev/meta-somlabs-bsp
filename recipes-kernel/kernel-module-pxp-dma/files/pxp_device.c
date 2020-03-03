@@ -34,6 +34,7 @@
 
 #define BUFFER_HASH_ORDER 4
 
+static struct device *dma_dev;
 static struct pxp_buffer_hash bufhash;
 static struct pxp_irq_info irq_info[NR_PXP_VIRT_CHANNEL];
 
@@ -229,7 +230,7 @@ static int pxp_channel_handle_delete(struct pxp_file *file_priv,
 
 static int pxp_alloc_dma_buffer(struct pxp_buf_obj *obj)
 {
-	obj->virtual = dma_alloc_coherent(NULL, PAGE_ALIGN(obj->size),
+	obj->virtual = dma_alloc_coherent(dma_dev, PAGE_ALIGN(obj->size),
 			       (dma_addr_t *) (&obj->offset),
 			       GFP_DMA | GFP_KERNEL);
 	pr_debug("[ALLOC] mem alloc phys_addr = 0x%lx\n", obj->offset);
@@ -245,7 +246,7 @@ static int pxp_alloc_dma_buffer(struct pxp_buf_obj *obj)
 static void pxp_free_dma_buffer(struct pxp_buf_obj *obj)
 {
 	if (obj->virtual != NULL) {
-		dma_free_coherent(0, PAGE_ALIGN(obj->size),
+		dma_free_coherent(dma_dev, PAGE_ALIGN(obj->size),
 				  obj->virtual, (dma_addr_t)obj->offset);
 	}
 }
@@ -596,6 +597,8 @@ static long pxp_device_ioctl(struct file *filp,
 	int ret = 0;
 	struct pxp_file *file_priv = filp->private_data;
 
+	
+
 	switch (cmd) {
 	case PXP_IOC_GET_CHAN:
 		{
@@ -855,9 +858,10 @@ static struct miscdevice pxp_device_miscdev = {
 	.fops = &pxp_device_fops,
 };
 
-int register_pxp_device(void)
+int register_pxp_device(struct device *dev)
 {
 	int ret;
+	dma_dev = dev;
 
 	ret = misc_register(&pxp_device_miscdev);
 	if (ret)
