@@ -37,7 +37,7 @@ LICENSE_FLAGS_WHITELIST = "commercial"
 #MACHINE ?= "edgerouter"
 #
 # This sets the default machine to be qemux86 if no other machine is selected:
-MACHINE ??= "visionsom6ull-wifi-cb-std"
+MACHINE ?= "visionsom6ull-wifi-cb-std"
 
 #
 # Where to place downloads

@@ -6,57 +6,46 @@
 
 / {
 	regulators {
-                reg_wlan: regulator-wlan {
-	                compatible = "regulator-fixed";
-	                regulator-name = "reg_wlan";
-	                regulator-min-microvolt = <3300000>;
-	                regulator-max-microvolt = <3300000>;
-	                gpio = <&gpio1 5 0>;
-	                startup-delay-us = <100>;
-	                enable-active-high;
-                };
-        };
+		reg_wlan: regulator-wlan {
+			compatible = "regulator-fixed";
+			regulator-name = "reg_wlan";
+			pinctrl-names = "default";
+			pinctrl-0 = <&pinctrl_regwlan>;
+			regulator-min-microvolt = <3300000>;
+			regulator-max-microvolt = <3300000>;
+			gpio = <&gpio1 5 0>;
+			startup-delay-us = <100>;
+			enable-active-high;
+		};
+	};
 };
 
 &iomuxc {
-    visionsom6ull-wifi {
-        pinctrl_usdhc1_wlan: usdhc1wlangrp {
-                fsl,pins = <
-                        MX6UL_PAD_SD1_CMD__USDHC1_CMD       0x17059
-                        MX6UL_PAD_SD1_CLK__USDHC1_CLK       0x10071
-                        MX6UL_PAD_SD1_DATA0__USDHC1_DATA0   0x17059
-                        MX6UL_PAD_SD1_DATA1__USDHC1_DATA1   0x17059
-                        MX6UL_PAD_SD1_DATA2__USDHC1_DATA2   0x17059
-                        MX6UL_PAD_SD1_DATA3__USDHC1_DATA3   0x17059
-                        MX6UL_PAD_JTAG_TCK__OSC32K_32K_OUT  0x17099 /* Wi-Fi 32kHz low power clock reference */
-                >;
-        };
+    visionsom6ull-wifibt {
+	pinctrl_regwlan: regwlangrp {
+		fsl,pins = <
+			MX6UL_PAD_GPIO1_IO05__GPIO1_IO05    0x17059
+		>;
+	};
 
-        pinctrl_regwlan: regwlangrp {
-            fsl,pins = <
-	        MX6UL_PAD_GPIO1_IO05__GPIO1_IO05    0x17059
-            >;
-        };
+	pinctrl_uart5: uart5grp {
+		fsl,pins = <
+			MX6UL_PAD_CSI_DATA00__UART5_DCE_TX  0x1b0b1
+			MX6UL_PAD_CSI_DATA01__UART5_DCE_RX  0x1b0b1
+			MX6UL_PAD_CSI_DATA02__UART5_DCE_RTS 0x1b0b1
+			MX6UL_PAD_CSI_DATA03__UART5_DCE_CTS 0x1b0b1
+			MX6UL_PAD_CSI_MCLK__GPIO4_IO17      0x17059   /* bluetooth module on/off" */
+		>;
+	};
     };
-    
-    visionsom6ull-bt {
-        pinctrl_uart5: uart5grp {
-            fsl,pins = <
-	            MX6UL_PAD_CSI_DATA00__UART5_DCE_TX  0x1b0b1
-	            MX6UL_PAD_CSI_DATA01__UART5_DCE_RX  0x1b0b1
-	            MX6UL_PAD_CSI_DATA02__UART5_DCE_RTS 0x1b0b1
-	            MX6UL_PAD_CSI_DATA03__UART5_DCE_CTS 0x1b0b1
-                    MX6UL_PAD_CSI_MCLK__GPIO4_IO17      0x17059   /* bluetooth module on/off" */
-            >;
-        };
-    };
-
 };
 
 /* SDIO WiFi */
-&usdhc1 {
-	pinctrl-names = "default";
-	pinctrl-0 = <&pinctrl_usdhc1_wlan &pinctrl_regwlan>;
+&usdhc1 {	
+	pinctrl-names = "default", "state_100mhz", "state_200mhz";
+	pinctrl-0 = <&pinctrl_usdhc1>;
+	pinctrl-1 = <&pinctrl_usdhc1_100mhz>;
+	pinctrl-2 = <&pinctrl_usdhc1_200mhz>;
 	no-1-8-v;
 	non-removable;
 	cd-post;
@@ -66,12 +55,11 @@
 	enable-sdio-wakeup;
 	vmmc-supply = <&reg_wlan>;
 	status = "okay";
-
-        brcmf: brcmf@1 {
-                status = "okay";
-                reg = <1>;
-                compatible = "brcm,bcm43430-fmac";
-        };
+        
+        brcmf: bcrmf@1 {
+		reg = <1>;
+		compatible = "brcm,bcm4329-fmac";
+	};
 };
 
 /* Bluetooth */

@@ -8,6 +8,7 @@ SRCREV = "dbe68c464c301ddcd83ca4c09d7bf93baf85ed5e"
 
 SRC_URI = "git://github.com/SoMLabs/somlabs-uboot-imx.git;protocol=git;branch=${SRCBRANCH} \
            file://0001-enabled-saveenv-feature.patch \
+           file://0002-init-env-target.patch \
            "
 
 S = "${WORKDIR}/git"

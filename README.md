@@ -6,12 +6,12 @@ Basic SoMLabs Yocto meta-layer - intended to be easy to use as VisionSOM-6ULL pr
 #### Layer Features:
 - Somlabs U-Boot bootloader support with SD/NAND/EMMC auto recognition, USB flashing mode and custom splash screen
 - U-Boot fw-utils support
-- Fairly new Linux-fslc kernel from meta-freescale support 
+- Linux-imx kernel from meta-freescale 
 - Kernel device-tree structure prepared to be easily inherited by another layers(SOM module/Carrier board levels)  
 - Murata 1DX Wifi and Bluetooth module support Out-of-Box
 - QT5 support with evdev/tslib touch panel/keyboard + gstreamer backend for qtmultimedia
 - SOMLabs SL-TFT7-TP-800-480-P LCD+Touch panel support
-- PXP support for gstreamer hardware acceleration - pxp-dma-v3 driver ported from `-imx` kernel family
+- PXP support for gstreamer hardware acceleration
 - gstreamer PXP plugins support 
 - Proper sleep/wakeup support
 
@@ -28,12 +28,12 @@ On fresh Linux OS installation use this command to install tools needed by Yocto
 
 ```
 sudo apt-get install gawk wget git-core diffstat unzip texinfo gcc-multilib \
-build-essential chrpath socat cpio python python3 python3-pip python3-pexpect \
+build-essential chrpath socat cpio python3 python3-pip python3-pexpect \
 xz-utils debianutils iputils-ping python3-git python3-jinja2 libegl1-mesa libsdl1.2-dev \
-xterm
+pylint3 xterm
 ```
 
-[more info...](https://www.yoctoproject.org/docs/2.7/ref-manual/ref-manual.html#required-packages-for-the-build-host)
+[more info...](https://www.yoctoproject.org/docs/3.1/ref-manual/ref-manual.html#required-packages-for-the-build-host)
 
 
 Bulid environment
@@ -41,30 +41,28 @@ Bulid environment
 
 Open terminal window and run following commands:
 
-- create yocto root directory
+- create directories
 
 ```
-mkdir yocto
-cd yocto
-```
-- create build directory inside:
-```
 mkdir visionsom_build
+mkdir yocto-layers
+cd yocto-layers
 ```
+
 - download poky - reference Yocto Linux Distribution
 ```
-git clone -b zeus git://git.yoctoproject.org/poky.git poky
-cd poky
+git clone -b dunfell git://git.yoctoproject.org/poky.git poky
 ```
 - download essential layers
 ```
-git clone -b zeus git://git.openembedded.org/meta-openembedded
-git clone -b zeus https://github.com/Freescale/meta-freescale.git
-git clone -b zeus https://github.com/QB4-dev/meta-somlabs-bsp
+git clone -b dunfell git://git.openembedded.org/meta-openembedded
+git clone -b dunfell https://github.com/Freescale/meta-freescale.git
+git clone -b dunfell https://github.com/QB4-dev/meta-somlabs-bsp
 ```
 Init bulid environment
 ```
-source ./oe-init-build-env ../visionsom_build/
+cd ..
+source ./yocto-layers/poky/oe-init-build-env visionsom_build
 ```
 Bulid configuration
 ----
@@ -89,19 +87,19 @@ Recommended layers list:
 YOCTO_ROOT = "${@os.path.abspath(os.path.join("${TOPDIR}", os.pardir))}"
 
 BBLAYERS ?= " \
-  ${YOCTO_ROOT}/poky/meta \
-  ${YOCTO_ROOT}/poky/meta-poky \
-  ${YOCTO_ROOT}/poky/meta-openembedded/meta-oe \
-  ${YOCTO_ROOT}/poky/meta-openembedded/meta-networking \
-  ${YOCTO_ROOT}/poky/meta-openembedded/meta-python \
-  ${YOCTO_ROOT}/poky/meta-freescale \
-  ${YOCTO_ROOT}/poky/meta-somlabs-bsp \
+  ${YOCTO_ROOT}/yocto-layers/poky/meta \
+  ${YOCTO_ROOT}/yocto-layers/poky/meta-poky \
+  ${YOCTO_ROOT}/yocto-layers/meta-openembedded/meta-oe \
+  ${YOCTO_ROOT}/yocto-layers/meta-openembedded/meta-networking \
+  ${YOCTO_ROOT}/yocto-layers/meta-openembedded/meta-python \
+  ${YOCTO_ROOT}/yocto-layers/meta-freescale \
+  ${YOCTO_ROOT}/yocto-layers/meta-somlabs-bsp \
   "
 ```
 
 Build process
 ----
-Go back to `yocto/visionsom_build` directory and run:
+Go back to `visionsom_build` directory and run:
 ```
 bitbake core-image-minimal
 ```
@@ -111,7 +109,7 @@ bitbake core-image-minimal
 Flashing Linux image
 --
 
-To flash complete image onto SD card go to `yocto/visionsom_build/tmp/deploy/images/visionsom6ull-wifi-cb-std`
+To flash complete image onto SD card go to `visionsom_build/tmp/deploy/images/visionsom6ull-wifi-cb-std`
 insert your SD card and find card id using `lsblk` or `dmesg` cmd:
 
 ```

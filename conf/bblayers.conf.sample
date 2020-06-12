@@ -8,12 +8,12 @@ BBFILES ?= ""
 YOCTO_ROOT = "${@os.path.abspath(os.path.join("${TOPDIR}", os.pardir))}"
 
 BBLAYERS ?= " \
-  ${YOCTO_ROOT}/poky/meta \
-  ${YOCTO_ROOT}/poky/meta-poky \
-  ${YOCTO_ROOT}/poky/meta-openembedded/meta-oe \
-  ${YOCTO_ROOT}/poky/meta-openembedded/meta-networking \
-  ${YOCTO_ROOT}/poky/meta-openembedded/meta-python \
-  ${YOCTO_ROOT}/poky/meta-freescale \
-  ${YOCTO_ROOT}/poky/meta-somlabs-bsp \
+  ${YOCTO_ROOT}/yocto-layers/poky/meta \
+  ${YOCTO_ROOT}/yocto-layers/poky/meta-poky \
+  ${YOCTO_ROOT}/yocto-layers/meta-openembedded/meta-oe \
+  ${YOCTO_ROOT}/yocto-layers/meta-openembedded/meta-networking \
+  ${YOCTO_ROOT}/yocto-layers/meta-openembedded/meta-python \
+  ${YOCTO_ROOT}/yocto-layers/meta-freescale \
+  ${YOCTO_ROOT}/yocto-layers/meta-somlabs-bsp \
   "
 
