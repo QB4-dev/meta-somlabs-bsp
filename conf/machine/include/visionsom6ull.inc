@@ -15,10 +15,12 @@ PREFERRED_PROVIDER_virtual/bootloader = "u-boot-somlabs"
 PREFERRED_PROVIDER_virtual/kernel = "linux-imx"
 
 # Use i.MX Gstreamer Version
+MACHINE_GSTREAMER_1_0_PLUGIN_mx6ull = "imx-gst1.0-plugin"
+
 PREFERRED_VERSION_gstreamer1.0 = "1.16.imx"
 PREFERRED_VERSION_gstreamer1.0-plugins-base = "1.16.imx"
 PREFERRED_VERSION_gstreamer1.0-plugins-good = "1.16.imx"
-PREFERRED_VERSION_gstreamer1.0-plugins-bad = "1.16.imx"
+PREFERRED_VERSION_gstreamer1.0-plugins-bad  = "1.16.imx"
 
 SERIAL_CONSOLE = "115200 ttymxc0"
 

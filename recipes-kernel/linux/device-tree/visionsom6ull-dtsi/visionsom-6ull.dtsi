@@ -67,7 +67,6 @@
 };
 
 &pxp {
-	clock-names = "pxp_ipg", "pxp_axi";
 	status = "okay";
 };
 
