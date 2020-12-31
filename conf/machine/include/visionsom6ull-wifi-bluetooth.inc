@@ -11,6 +11,3 @@ IMAGE_INSTALL_append = "\
     packagegroup-base-bluetooth \
 "
 
-# murata-fwmac-fw 
-# murata-fwmac-nvram 
-

@@ -9,7 +9,7 @@ include conf/machine/include/tune-cortexa7.inc
 
 # u-boot and kernel providers
 PREFERRED_PROVIDER_u-boot = "u-boot-somlabs"
-PREFERRED_PROVIDER_u-boot-fw-utils = "u-boot-somlabs-fw-utils"
+PREFERRED_PROVIDER_u-boot-fw-utils = "libubootenv"
 
 PREFERRED_PROVIDER_virtual/bootloader = "u-boot-somlabs"
 PREFERRED_PROVIDER_virtual/kernel = "linux-imx"
@@ -32,13 +32,13 @@ UBOOT_CONFIG[nand] = "somlabs_visionsom_6ull_fastboot_nand_defconfig"
 # always depend of u-boot
 EXTRA_IMAGEDEPENDS += "u-boot-somlabs"
 
-# add u-boot utils + kernel to image
+# add kernel + u-boot utils to image
 IMAGE_INSTALL_append = " \
-    kernel-image \
-    kernel-devicetree \
-    kernel-modules \
-    u-boot-splash \
-    u-boot-somlabs-fw-utils \
+	kernel-image \
+	kernel-devicetree \
+	kernel-modules \
+	u-boot-splash \
+	u-boot-fw-utils \
 "  
 
 IMAGE_FSTYPES = "wic.gz"
